@@ -1,16 +1,16 @@
-package main
+package types
 
 import "testing"
 
 func TestString(t *testing.T) {
 	data := Data{
-		numDecimal:     42,
-		numOctal:       052,
-		numHexadecimal: 0x2A,
-		pi:             3.14,
-		name:           "Golang",
-		isActive:       true,
-		complexNum:     complex(1.0, 2.0),
+		NumDecimal:     42,
+		NumOctal:       052,
+		NumHexadecimal: 0x2A,
+		Pi:             3.14,
+		Name:           "Golang",
+		IsActive:       true,
+		ComplexNum:     complex(1.0, 2.0),
 	}
 
 	expected := "var numDecimal int = 42\nvar numOctal int = 52\nvar numHexadecimal int = 2A\nvar pi float64 = 3.14\nvar name string = Golang\nvar isActive bool = true\nvar complexNum complex64 = (1+2i)"
@@ -21,13 +21,13 @@ func TestString(t *testing.T) {
 
 func TestToString(t *testing.T) {
 	data := Data{
-		numDecimal:     42,
-		numOctal:       052,
-		numHexadecimal: 0x2A,
-		pi:             3.14,
-		name:           "Golang",
-		isActive:       true,
-		complexNum:     complex(1.0, 2.0),
+		NumDecimal:     42,
+		NumOctal:       052,
+		NumHexadecimal: 0x2A,
+		Pi:             3.14,
+		Name:           "Golang",
+		IsActive:       true,
+		ComplexNum:     complex(1.0, 2.0),
 	}
 
 	expected := "42 52 2A 3.14 Golang true (1+2i)"
@@ -38,13 +38,13 @@ func TestToString(t *testing.T) {
 
 func TestHash(t *testing.T) {
 	data := Data{
-		numDecimal:     42,
-		numOctal:       052,
-		numHexadecimal: 0x2A,
-		pi:             3.14,
-		name:           "Golang",
-		isActive:       true,
-		complexNum:     complex(1.0, 2.0),
+		NumDecimal:     42,
+		NumOctal:       052,
+		NumHexadecimal: 0x2A,
+		Pi:             3.14,
+		Name:           "Golang",
+		IsActive:       true,
+		ComplexNum:     complex(1.0, 2.0),
 	}
 
 	hash := data.Hash()
