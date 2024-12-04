@@ -13,7 +13,7 @@ func TestString(t *testing.T) {
 		complexNum:     complex(1.0, 2.0),
 	}
 
-	expected := "numDecimal 42 - int\nnumOctal 52 - int\nnumHexadecimal 2A - int\npi 3.14 - float64\nname Golang - string\nisActive true - bool\ncomplexNum (1+2i) - complex64"
+	expected := "var numDecimal int = 42\nvar numOctal int = 52\nvar numHexadecimal int = 2A\nvar pi float64 = 3.14\nvar name string = Golang\nvar isActive bool = true\nvar complexNum complex64 = (1+2i)"
 	if result := data.String(); result != expected {
 		t.Errorf("\nExpected:\n%v\n,Got:\n%v", expected, result)
 	}

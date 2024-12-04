@@ -31,7 +31,7 @@ type Data struct {
 }
 
 func (d *Data) String() string {
-	return fmt.Sprintf("numDecimal %d - %T\nnumOctal %o - %T\nnumHexadecimal %X - %T\npi %g - %T\nname %s - %T\nisActive %t - %T\ncomplexNum %v - %T",
+	return fmt.Sprintf("var numDecimal %T = %d\nvar numOctal %T = %o\nvar numHexadecimal %T = %X\nvar pi %T = %g\nvar name %T = %s\nvar isActive %T = %t\nvar complexNum %T = %v",
 		d.numDecimal, d.numDecimal, d.numOctal, d.numOctal, d.numHexadecimal, d.numHexadecimal, d.pi, d.pi, d.name, d.name, d.isActive, d.isActive, d.complexNum, d.complexNum)
 }
 
