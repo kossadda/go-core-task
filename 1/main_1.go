@@ -7,31 +7,36 @@ import (
 
 func main() {
 	data := Data{
-		int:       42,
-		float64:   3.14,
-		string:    "Golang",
-		bool:      true,
-		complex64: complex(1.0, 2.0),
+		numDecimal:     42,
+		numOctal:       052,
+		numHexadecimal: 0x2A,
+		pi:             3.14,
+		name:           "Golang",
+		isActive:       true,
+		complexNum:     complex(1.0, 2.0),
 	}
 
 	fmt.Println(&data)
-	fmt.Println(data.Hash())
+	fmt.Println("Sha256 -", data.Hash())
 }
 
 type Data struct {
-	int
-	float64
-	string
-	bool
-	complex64
+	numDecimal     int
+	numOctal       int
+	numHexadecimal int
+	pi             float64
+	name           string
+	isActive       bool
+	complexNum     complex64
 }
 
 func (d *Data) String() string {
-	return fmt.Sprintf("%T\n%T\n%T\n%T\n%T", d.int, d.float64, d.string, d.bool, d.complex64)
+	return fmt.Sprintf("numDecimal %d - %T\nnumOctal %o - %T\nnumHexadecimal %X - %T\npi %g - %T\nname %s - %T\nisActive %t - %T\ncomplexNum %v - %T",
+		d.numDecimal, d.numDecimal, d.numOctal, d.numOctal, d.numHexadecimal, d.numHexadecimal, d.pi, d.pi, d.name, d.name, d.isActive, d.isActive, d.complexNum, d.complexNum)
 }
 
 func (d *Data) ToString() string {
-	return fmt.Sprintf("%d %o %X %f %s %t %v", d.int, d.int, d.int, d.float64, d.string, d.bool, d.complex64)
+	return fmt.Sprintf("%d %o %X %g %s %t %v", d.numDecimal, d.numOctal, d.numHexadecimal, d.pi, d.name, d.isActive, d.complexNum)
 }
 
 func (d *Data) Hash() string {
