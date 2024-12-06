@@ -1,6 +1,9 @@
 package chans
 
-import "fmt"
+import (
+	"fmt"
+	"sync"
+)
 
 func Create[T comparable](elements ...T) chan T {
 	ch := make(chan T)
@@ -15,27 +18,37 @@ func Create[T comparable](elements ...T) chan T {
 	return ch
 }
 
-func Merge[T comparable](done chan<- struct{}, channels ...chan T) <-chan T {
+func Merge[T comparable](channels ...chan T) (<-chan T, <-chan struct{}) {
 	out := make(chan T)
-	rangeRoutines := make(chan struct{})
+	done := make(chan struct{})
+	var wg sync.WaitGroup
 
 	for _, ch := range channels {
+		wg.Add(1)
 		go func(c <-chan T) {
+			defer wg.Done()
 			for v := range c {
 				out <- v
 			}
-			rangeRoutines <- struct{}{}
 		}(ch)
 	}
 
 	go func() {
-		for i := 0; i < len(channels); i++ {
-			<-rangeRoutines
-		}
-		close(rangeRoutines)
+		wg.Wait()
 		done <- struct{}{}
-		fmt.Println("Closed")
 	}()
 
-	return out
+	return out, done
+}
+
+func Output[T comparable](channel <-chan T, done <-chan struct{}) {
+loop:
+	for {
+		select {
+		case num := <-channel:
+			fmt.Println(num)
+		case <-done:
+			break loop
+		}
+	}
 }
