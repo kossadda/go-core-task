@@ -1,9 +1,13 @@
+// Package chans provides utility functions to work with channels,
+// including creating channels, merging multiple channels into one, and collecting
 package chans
 
 import (
 	"sync"
 )
 
+// Create creates a channel of type T, sends the provided elements into it,
+// and closes the channel after all elements are sent.
 func Create[T comparable](elements ...T) chan T {
 	ch := make(chan T)
 
@@ -17,6 +21,8 @@ func Create[T comparable](elements ...T) chan T {
 	return ch
 }
 
+// Merge merges multiple channels of type T into a single output channel.
+// It also returns a 'done' channel that signals when all input channels are processed.
 func Merge[T comparable](channels ...chan T) (<-chan T, <-chan struct{}) {
 	out := make(chan T)
 	done := make(chan struct{})
@@ -40,6 +46,8 @@ func Merge[T comparable](channels ...chan T) (<-chan T, <-chan struct{}) {
 	return out, done
 }
 
+// Output collects values from the merged channel and returns them as a slice.
+// It waits for the 'done' signal to ensure all channels are processed.
 func Output[T comparable](channel <-chan T, done <-chan struct{}) []T {
 	var slice []T
 
