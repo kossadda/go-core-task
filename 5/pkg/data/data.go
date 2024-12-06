@@ -6,6 +6,7 @@ import (
 	"io"
 	"os"
 	"strconv"
+	"strings"
 )
 
 func New() (numbers []int) {
@@ -22,7 +23,7 @@ func New() (numbers []int) {
 			continue
 		}
 
-		value, err := strconv.Atoi(input[:len(input)-1])
+		value, err := strconv.Atoi(strings.TrimSpace(input))
 		if err != nil {
 			fmt.Fprintln(os.Stderr, "Error while entering a number:", err)
 			continue
