@@ -11,8 +11,11 @@ const (
 
 func TestInt(t *testing.T) {
 	ch := make(chan int)
+	defer close(ch)
+	done := make(chan struct{})
+	defer close(done)
 
-	go Start(minValue, maxValue, ch)
+	go Start(minValue, maxValue, ch, done)
 
 	value := Int(ch)
 
@@ -23,8 +26,11 @@ func TestInt(t *testing.T) {
 
 func TestStart(t *testing.T) {
 	ch := make(chan int)
+	defer close(ch)
+	done := make(chan struct{})
+	defer close(done)
 
-	go Start(minValue, maxValue, ch)
+	go Start(minValue, maxValue, ch, done)
 
 	for i := 0; i < 10; i++ {
 		value := <-ch
@@ -36,8 +42,11 @@ func TestStart(t *testing.T) {
 
 func TestEdgeCase(t *testing.T) {
 	ch := make(chan int)
+	defer close(ch)
+	done := make(chan struct{})
+	defer close(done)
 
-	go Start(minValue, maxValue, ch)
+	go Start(minValue, maxValue, ch, done)
 
 	for i := 0; i < 10; i++ {
 		value := <-ch

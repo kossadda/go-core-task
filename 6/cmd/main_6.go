@@ -16,8 +16,10 @@ const (
 func main() {
 	ch := make(chan int)
 	defer close(ch)
+	done := make(chan struct{})
+	defer close(done)
 
-	go generator.Start(minValue, maxValue, ch)
+	go generator.Start(minValue, maxValue, ch, done)
 
 	for i := 0; i < 10; i++ {
 		fmt.Println(generator.Int(ch))
