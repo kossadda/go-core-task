@@ -1,7 +1,6 @@
 package chans
 
 import (
-	"fmt"
 	"sync"
 )
 
@@ -41,14 +40,18 @@ func Merge[T comparable](channels ...chan T) (<-chan T, <-chan struct{}) {
 	return out, done
 }
 
-func Output[T comparable](channel <-chan T, done <-chan struct{}) {
+func Output[T comparable](channel <-chan T, done <-chan struct{}) []T {
+	var slice []T
+
 loop:
 	for {
 		select {
-		case num := <-channel:
-			fmt.Println(num)
+		case value := <-channel:
+			slice = append(slice, value)
 		case <-done:
 			break loop
 		}
 	}
+
+	return slice
 }
