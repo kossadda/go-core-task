@@ -1,3 +1,5 @@
+// Package data provides functionality to read slices of integers from user input.
+// This package is designed to handle input validation and parsing.
 package data
 
 import (
@@ -9,6 +11,7 @@ import (
 	"strings"
 )
 
+// New reads a slice of integers from user input until EOF or an error occurs.
 func New() (numbers []int) {
 	reader := bufio.NewReader(os.Stdin)
 

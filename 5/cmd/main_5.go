@@ -1,3 +1,5 @@
+// This program accepts two slices of integers from the user, finds their intersection,
+// and prints the result. If either slice is empty, the program exits with an error.
 package main
 
 import (
