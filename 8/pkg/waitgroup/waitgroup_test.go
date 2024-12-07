@@ -9,7 +9,7 @@ func TestAll(t *testing.T) {
 	wg := New()
 
 	tasks := 3
-	wg.Add(int64(tasks))
+	wg.Add(tasks)
 
 	for i := 0; i < tasks; i++ {
 		go func(taskID int) {
@@ -19,8 +19,8 @@ func TestAll(t *testing.T) {
 	}
 
 	wg.Wait()
-	if !wg.state.EqZero() {
-		t.Errorf("Expected counter to be 0, got %d", wg.state.cnt)
+	if wg.count != 0 {
+		t.Errorf("Expected counter to be 0, got %d", wg.count)
 	}
 
 	defer func() {

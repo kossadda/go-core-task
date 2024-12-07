@@ -10,8 +10,7 @@ func main() {
 	wg := waitgroup.New()
 
 	tasks := 3
-
-	wg.Add(int64(tasks))
+	wg.Add(tasks)
 
 	for i := 1; i <= tasks; i++ {
 		go func(taskID int) {
