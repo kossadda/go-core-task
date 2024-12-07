@@ -1,9 +1,10 @@
+// This program demonstrates the usage of the custom WaitGroup implementation.
 package main
 
 import (
 	"fmt"
 	"time"
-	
+
 	"github.com/kossadda/go-core-task/8/pkg/waitgroup"
 )
 
