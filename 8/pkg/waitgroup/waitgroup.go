@@ -29,7 +29,10 @@ func (wg *WaitGroup) Add(delta int) {
 func (wg *WaitGroup) Done() {
 	wg.Add(-1)
 	if wg.count == 0 {
-		wg.sem <- struct{}{}
+		select {
+		case wg.sem <- struct{}{}:
+		default:
+		}
 	}
 }
 

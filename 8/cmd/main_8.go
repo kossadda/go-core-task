@@ -2,8 +2,9 @@ package main
 
 import (
 	"fmt"
-	"github.com/kossadda/go-core-task/8/pkg/waitgroup"
 	"time"
+	
+	"github.com/kossadda/go-core-task/8/pkg/waitgroup"
 )
 
 func main() {

@@ -5,7 +5,7 @@ import (
 	"time"
 )
 
-func TestAll(t *testing.T) {
+func TestWaitGroup(t *testing.T) {
 	wg := New()
 
 	tasks := 3
@@ -22,6 +22,10 @@ func TestAll(t *testing.T) {
 	if wg.count != 0 {
 		t.Errorf("Expected counter to be 0, got %d", wg.count)
 	}
+}
+
+func TestNegativeCounterPanic(t *testing.T) {
+	wg := New()
 
 	defer func() {
 		if r := recover(); r == nil {
@@ -29,4 +33,20 @@ func TestAll(t *testing.T) {
 		}
 	}()
 	wg.Done()
+}
+
+func TestWaitWithoutAdd(t *testing.T) {
+	wg := New()
+
+	done := make(chan struct{})
+	go func() {
+		wg.Wait()
+		close(done)
+	}()
+
+	select {
+	case <-done:
+		t.Error("Wait() returned without any tasks being added")
+	case <-time.After(time.Millisecond * 100):
+	}
 }
